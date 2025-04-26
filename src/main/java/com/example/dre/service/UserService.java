@@ -126,4 +126,19 @@ public ResponseEntity<?> findMatch(int id, int top) {
 }
 
 
+
+public ResponseEntity<?> search(String name) {
+	List<User> all = dao.findAllUsers();
+	List<User> result = new ArrayList<>();
+	for(User u:all) {
+		if(u.getName().indexOf(name)!=-1) {
+			result.add(u);
+		}
+	}
+	ResponseStructure rs=ResponseStructure.builder().status(HttpStatus.OK.value()).message("all matching user found successfully").body(result).build();
+	ResponseEntity re=ResponseEntity.status(HttpStatus.OK).body(rs);
+	return re;
+}
+
+
 }
